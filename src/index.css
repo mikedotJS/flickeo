@@ -1,0 +1,30 @@
+body {
+  font-family: sans-serif;
+}
+
+header {
+  padding: 8px 0 8px 0;
+}
+
+.bookmark-list {
+  display: grid;
+  grid-gap: 8px;
+}
+
+.bookmark {
+  display: flex;
+  border: 1px solid black;
+  position: relative;
+}
+
+.bookmark .bookmark-content {
+  display: flex;
+  flex-direction: column;
+  padding: 8px;
+}
+
+.bookmark .bookmark-delete-button {
+  position: absolute;
+  right: 8px;
+  top: 8px;
+}
