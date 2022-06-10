@@ -4,11 +4,12 @@
   "description": "",
   "source": "src/index.html",
   "scripts": {
-    "test:watch": "jest --watch",
-    "test": "jest",
-    "dev": "parcel",
     "build": "parcel build",
-    "prettier:fix": "npx prettier --write src"
+    "dev": "parcel",
+    "prettier:fix": "npx prettier --write src",
+    "start": "parcel build src/index.html",
+    "test:watch": "jest --watch",
+    "test": "jest"
   },
   "repository": {
     "type": "git",

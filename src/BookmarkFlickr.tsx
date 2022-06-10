@@ -18,7 +18,11 @@ export function BookmarkFlickr({ data, deleteBookmark }: Props): JSX.Element {
 
   return (
     <div className="bookmark">
-      <img className="bookmark-image" src={data.thumbnail_url} />
+      <img
+        className="bookmark-image"
+        src={data.thumbnail_url}
+        alt="Bookmark thumbnail"
+      />
 
       <div className="bookmark-content">
         <a href={data.url}>{data.url}</a>
