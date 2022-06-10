@@ -2,6 +2,7 @@ import * as React from "react";
 
 import { BookmarkFlickr } from "./BookmarkFlickr";
 import { BookmarkVimeo } from "./BookmarkVimeo";
+import { AUTHORIZED_DOMAIN } from "./constants";
 import { useNoEmbed } from "./hooks/useNoEmbed";
 import { UrlNoEmbedFlickr, UrlNoEmbedVimeo } from "./services/NoEmbedService";
 
@@ -10,19 +11,47 @@ export function App() {
   const [bookmarks, setBookmarks] = React.useState<
     ((UrlNoEmbedFlickr | UrlNoEmbedVimeo) & { bookmarked_at: Date })[]
   >([]);
+  const [bookmarkError, setBookmarkError] = React.useState("");
 
   const { data, loading, error } = useNoEmbed(url);
 
   function handleURLChange(event): void {
-    setUrl(event.target.value);
+    const value: string = event.target.value;
+
+    setUrl(value);
   }
 
   function addBookmark() {
-    if (url && data && !loading && !error)
+    if (
+      url &&
+      data &&
+      !loading &&
+      !error &&
+      url.match(
+        // Regex to validate URL
+        /^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w.-]+)+[\w\-._~:/?#[\]@!$&'()*+,;=.]+$/gm
+      ) &&
+      (url.includes(AUTHORIZED_DOMAIN.FLICKR) ||
+        url.includes(AUTHORIZED_DOMAIN.VIMEO)) &&
+      !bookmarks.some((bookmark) => bookmark.url === url)
+    )
       setBookmarks((oldBookmarks) => [
         ...oldBookmarks,
         { ...data, bookmarked_at: new Date() },
       ]);
+    setBookmarkError("");
+
+    if (
+      url.match(
+        // Regex to validate URL
+        /^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w.-]+)+[\w\-._~:/?#[\]@!$&'()*+,;=.]+$/gm
+      ) &&
+      !url.includes(AUTHORIZED_DOMAIN.FLICKR) &&
+      !url.includes(AUTHORIZED_DOMAIN.VIMEO)
+    ) {
+      // We should be using an error dictionary here of course
+      setBookmarkError("Flickr and Vimeo are the only authorized providers");
+    }
   }
 
   function deleteBookmark(url: string): void {
@@ -48,7 +77,16 @@ export function App() {
 
         <div>
           <span>{loading ?? "Loading..."}</span>
-          <span>{error?.message}</span>
+          {error && (
+            <div className="error-message" style={{ marginBottom: "8px" }}>
+              Error: {error}
+            </div>
+          )}
+          {bookmarkError && (
+            <div className="error-message" style={{ marginBottom: "8px" }}>
+              Error: {bookmarkError}
+            </div>
+          )}
 
           <div className="bookmark-list">
             {bookmarks.map((bookmark) => {

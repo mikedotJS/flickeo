@@ -9,6 +9,7 @@ export interface UrlNoEmbed {
   author_url: string;
   description: string;
   duration: number;
+  error?: string;
   height: number;
   html: string;
   is_plus: string;

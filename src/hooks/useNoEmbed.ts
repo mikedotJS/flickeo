@@ -9,22 +9,28 @@ import {
 export function useNoEmbed(url: string): {
   data: UrlNoEmbedFlickr | UrlNoEmbedVimeo;
   loading: boolean;
-  error: Error;
+  error: string;
 } {
   const [loading, setLoading] = React.useState(false);
-  const [error, setError] = React.useState(null);
+  const [error, setError] = React.useState("");
   const [data, setData] = React.useState(undefined);
 
   React.useEffect(() => {
+    setError("");
+
     const fetchUrlData = async () => {
       try {
         setLoading(true);
 
         const data = await NoEmbedService.getURLData(url);
 
-        setData(data);
+        if (data?.error) {
+          setError(data.error);
+        } else {
+          setData(data);
+        }
       } catch (error) {
-        setError(error);
+        console.error(error);
       } finally {
         setLoading(false);
       }

@@ -28,3 +28,7 @@ header {
   right: 8px;
   top: 8px;
 }
+
+.error-message {
+  color: red;
+}
