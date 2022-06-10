@@ -7,7 +7,6 @@
     "build": "parcel build",
     "dev": "parcel",
     "prettier:fix": "npx prettier --write src",
-    "start": "parcel build src/index.html",
     "test:watch": "jest --watch",
     "test": "jest"
   },
