@@ -1,6 +1,4 @@
-const ONE_SECOND = 1_000;
-const ONE_MINUTE = ONE_SECOND * 60;
-const ONE_HOUR = ONE_MINUTE * 60;
+import { ONE_HOUR, ONE_MINUTE, ONE_SECOND } from "../constants";
 
 export function getHMSFromMS(ms: number) {
   const hours = Math.trunc((ms / ONE_HOUR) % 24);

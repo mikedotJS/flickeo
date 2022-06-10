@@ -34,12 +34,13 @@ export function App() {
       (url.includes(AUTHORIZED_DOMAIN.FLICKR) ||
         url.includes(AUTHORIZED_DOMAIN.VIMEO)) &&
       !bookmarks.some((bookmark) => bookmark.url === url)
-    )
+    ) {
       setBookmarks((oldBookmarks) => [
         ...oldBookmarks,
         { ...data, bookmarked_at: new Date() },
       ]);
-    setBookmarkError("");
+      setBookmarkError("");
+    }
 
     if (
       url.match(
@@ -73,10 +74,15 @@ export function App() {
           style={{ margin: "0 4px 8px 0" }}
         />
 
-        <button onClick={addBookmark}>Submit</button>
+        {data && (
+          <button onClick={addBookmark} style={{ marginRight: "4px" }}>
+            Submit
+          </button>
+        )}
+
+        {loading && <span>Loading...</span>}
 
         <div>
-          <span>{loading ?? "Loading..."}</span>
           {error && (
             <div className="error-message" style={{ marginBottom: "8px" }}>
               Error: {error}
@@ -87,7 +93,6 @@ export function App() {
               Error: {bookmarkError}
             </div>
           )}
-
           <div className="bookmark-list">
             {bookmarks.map((bookmark) => {
               return bookmark.provider_name === "Vimeo" ? (
@@ -105,8 +110,6 @@ export function App() {
               );
             })}
           </div>
-
-          <pre>{JSON.stringify(data, null, 2)}</pre>
         </div>
       </main>
     </>

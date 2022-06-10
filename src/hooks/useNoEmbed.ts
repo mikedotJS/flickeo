@@ -19,9 +19,11 @@ export function useNoEmbed(url: string): {
     setError("");
 
     const fetchUrlData = async () => {
-      try {
-        setLoading(true);
+      setLoading(true);
 
+      // We could add throttling here
+
+      try {
         const data = await NoEmbedService.getURLData(url);
 
         if (data?.error) {

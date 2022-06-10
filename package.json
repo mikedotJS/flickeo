@@ -25,7 +25,9 @@
     "@babel/core": "^7.18.2",
     "@babel/preset-env": "^7.18.2",
     "@babel/preset-react": "^7.17.12",
+    "@babel/preset-typescript": "^7.17.12",
     "@testing-library/react": "^13.3.0",
+    "@testing-library/user-event": "^14.2.0",
     "@types/jest": "^28.1.1",
     "@types/react": "^18.0.12",
     "@types/react-dom": "^18.0.5",
@@ -39,6 +41,7 @@
     "eslint-plugin-simple-import-sort": "^7.0.0",
     "jest": "^28.1.1",
     "jest-environment-jsdom": "^28.1.1",
+    "jest-fetch-mock": "^3.0.3",
     "parcel": "^2.6.0",
     "prettier": "2.6.2",
     "process": "^0.11.10"
